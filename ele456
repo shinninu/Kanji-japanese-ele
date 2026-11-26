@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>かんじ しょうぶ 4〜6年</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f7f4ea;color:#23303f;font-family:"Hiragino Maru Gothic ProN","BIZ UDPGothic",sans-serif;line-height:1.6}
+main{max-width:640px;margin:auto;padding:16px}
+h1{font-size:26px;margin:4px 0;text-align:center}h2{font-size:17px;margin:20px 0 8px}
+button{font:inherit;color:inherit;border:2px solid #23303f;background:#fff;border-radius:12px;padding:10px 12px;cursor:pointer;touch-action:manipulation}
+button.on{background:#ffd45c;font-weight:bold}
+button.go{background:#d9472b;color:#fff;border-color:#d9472b;width:100%;font-size:20px;margin-top:12px}
+button.ok{background:#cdebd2}button.ng{background:#f8d3cc}
+button:disabled{opacity:.4}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>button{flex:1 1 130px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(42px,1fr));gap:4px;margin:8px 0}
+.grid button{padding:4px 0;font-size:20px;border-width:1px;border-radius:8px}
+input{font:inherit;padding:6px;border-radius:8px;border:1px solid #888;width:9em}
+.card{background:#fff;border-radius:16px;padding:14px;text-align:center;margin:10px 0}
+.q{font-size:34px;font-weight:bold}.q.long{font-size:20px}
+.t{color:#d9472b;border-bottom:4px solid}
+.ch{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ch button{font-size:19px;min-height:60px}
+.pad{display:block;margin:8px auto;background:#fff;border:2px solid #23303f;border-radius:12px;touch-action:none;width:min(100%,300px);aspect-ratio:1}
+.msg{min-height:1.6em;text-align:center;font-weight:bold}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.duel{position:fixed;inset:0;display:flex;flex-direction:column;background:#f7f4ea}
+.half{flex:1;overflow:auto;padding:8px 12px;text-align:center;display:flex;flex-direction:column;justify-content:center}
+.half.top{transform:rotate(180deg);background:#e4eef7}
+.half .q{font-size:28px}.half .q.long{font-size:17px}.half .ch button{min-height:48px;font-size:16px;padding:4px}
+.mid{border-block:3px solid #23303f;text-align:center;padding:2px}.mid button{padding:2px 12px}
+</style></head><body><main id="app"></main>
+<footer style="font-size:11px;text-align:center;padding:12px">
+書きじゅん表示：<a href="https://github.com/chanind/hanzi-writer">Hanzi Writer</a>（MIT License）／
+データ：<a href="https://github.com/chanind/hanzi-writer-data-jp">hanzi-writer-data-jp</a>
+（<a href="https://github.com/parsimonhi/animCJK">animCJK</a>・Make Me A Hanzi 由来、Arphic Public License／LGPL）
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+<script>
+const K={"4":[["愛","愛用","あいよう"],["案","案内","あんない"],["以","以上","いじょう"],["衣","衣服","いふく"],["位","順位","じゅんい"],["茨","茨城県","いばらきけん"],["印","目印","めじるし"],["英","英語","えいご"],["栄","栄養","えいよう"],["媛","愛媛県","えひめけん"],["塩","食塩","しょくえん"],["岡","岡山県","おかやまけん"],["億","一億","いちおく"],["加","参加","さんか"],["果","結果","けっか"],["貨","金貨","きんか"],["課","日課","にっか"],["芽","新芽","しんめ"],["賀","賀正","がしょう"],["改","改札","かいさつ"],["械","機械","きかい"],["害","水害","すいがい"],["街","街角","まちかど"],["各","各地","かくち"],["覚","感覚","かんかく"],["潟","新潟県","にいがたけん"],["完","完成","かんせい"],["官","外交官","がいこうかん"],["管","水道管","すいどうかん"],["関","関係","かんけい"],["観","観察","かんさつ"],["願","願書","がんしょ"],["岐","岐阜県","ぎふけん"],["希","希望","きぼう"],["季","四季","しき"],["旗","国旗","こっき"],["器","食器","しょっき"],["機","飛行機","ひこうき"],["議","会議","かいぎ"],["求","要求","ようきゅう"],["泣","泣き声","なきごえ"],["給","給食","きゅうしょく"],["挙","選挙","せんきょ"],["漁","漁業","ぎょぎょう"],["共","共通","きょうつう"],["協","協力","きょうりょく"],["鏡","手鏡","てかがみ"],["競","競走","きょうそう"],["極","南極","なんきょく"],["熊","熊本県","くまもとけん"],["訓","訓練","くんれん"],["軍","軍手","ぐんて"],["郡","郡部","ぐんぶ"],["群","大群","たいぐん"],["径","直径","ちょっけい"],["景","風景","ふうけい"],["芸","工芸","こうげい"],["欠","欠席","けっせき"],["結","結果","けっか"],["建","建物","たてもの"],["健","健康","けんこう"],["験","体験","たいけん"],["固","固定","こてい"],["功","成功","せいこう"],["好","大好物","だいこうぶつ"],["香","香川県","かがわけん"],["候","気候","きこう"],["康","健康","けんこう"],["佐","佐賀県","さがけん"],["差","時差","じさ"],["菜","野菜","やさい"],["最","最初","さいしょ"],["埼","埼玉県","さいたまけん"],["材","材料","ざいりょう"],["崎","長崎県","ながさきけん"],["昨","昨年","さくねん"],["札","名札","なふだ"],["刷","印刷","いんさつ"],["察","観察","かんさつ"],["参","参加","さんか"],["産","生産","せいさん"],["散","散歩","さんぽ"],["残","残念","ざんねん"],["氏","氏名","しめい"],["司","司会","しかい"],["試","試合","しあい"],["児","児童","じどう"],["治","自治","じち"],["滋","滋賀県","しがけん"],["辞","辞書","じしょ"],["鹿","鹿児島県","かごしまけん"],["失","失敗","しっぱい"],["借","借用","しゃくよう"],["種","種類","しゅるい"],["周","円周","えんしゅう"],["祝","祝日","しゅくじつ"],["順","順番","じゅんばん"],["初","初日","しょにち"],["松","松原","まつばら"],["笑","笑顔","えがお"],["唱","合唱","がっしょう"],["焼","夕焼け","ゆうやけ"],["照","照明","しょうめい"],["城","城下町","じょうかまち"],["縄","沖縄県","おきなわけん"],["臣","大臣","だいじん"],["信","信号","しんごう"],["井","福井県","ふくいけん"],["成","成長","せいちょう"],["省","反省","はんせい"],["清","清書","せいしょ"],["静","安静","あんせい"],["席","出席","しゅっせき"],["積","面積","めんせき"],["折","右折","うせつ"],["節","季節","きせつ"],["説","説明","せつめい"],["浅","遠浅","とおあさ"],["戦","作戦","さくせん"],["選","選手","せんしゅ"],["然","自然","しぜん"],["争","競争","きょうそう"],["倉","倉庫","そうこ"],["巣","巣箱","すばこ"],["束","約束","やくそく"],["側","右側","みぎがわ"],["続","連続","れんぞく"],["卒","卒業","そつぎょう"],["孫","子孫","しそん"],["帯","熱帯","ねったい"],["隊","楽隊","がくたい"],["達","配達","はいたつ"],["単","単位","たんい"],["置","位置","いち"],["仲","仲間","なかま"],["沖","沖合","おきあい"],["兆","一兆円","いっちょうえん"],["低","最低","さいてい"],["底","海底","かいてい"],["的","目的","もくてき"],["典","辞典","じてん"],["伝","伝言","でんごん"],["徒","生徒","せいと"],["努","努力","どりょく"],["灯","灯台","とうだい"],["働","労働","ろうどう"],["特","特別","とくべつ"],["徳","徳島県","とくしまけん"],["栃","栃木県","とちぎけん"],["奈","奈良県","ならけん"],["梨","山梨県","やまなしけん"],["熱","熱心","ねっしん"],["念","記念","きねん"],["敗","勝敗","しょうはい"],["梅","梅林","ばいりん"],["博","博物館","はくぶつかん"],["阪","大阪府","おおさかふ"],["飯","赤飯","せきはん"],["飛","飛行","ひこう"],["必","必要","ひつよう"],["票","投票","とうひょう"],["標","目標","もくひょう"],["不","不安","ふあん"],["夫","工夫","くふう"],["付","付近","ふきん"],["府","京都府","きょうとふ"],["阜","岐阜県","ぎふけん"],["富","富山県","とやまけん"],["副","副業","ふくぎょう"],["兵","兵器","へいき"],["別","区別","くべつ"],["辺","周辺","しゅうへん"],["変","変化","へんか"],["便","便利","べんり"],["包","包丁","ほうちょう"],["法","方法","ほうほう"],["望","希望","きぼう"],["牧","牧場","ぼくじょう"],["末","週末","しゅうまつ"],["満","満足","まんぞく"],["未","未来","みらい"],["民","住民","じゅうみん"],["無","無理","むり"],["約","予約","よやく"],["勇","勇気","ゆうき"],["要","重要","じゅうよう"],["養","養分","ようぶん"],["浴","海水浴","かいすいよく"],["利","勝利","しょうり"],["陸","着陸","ちゃくりく"],["良","改良","かいりょう"],["料","料理","りょうり"],["量","分量","ぶんりょう"],["輪","一輪車","いちりんしゃ"],["類","分類","ぶんるい"],["令","号令","ごうれい"],["冷","冷水","れいすい"],["例","例文","れいぶん"],["連","連休","れんきゅう"],["老","老人","ろうじん"],["労","苦労","くろう"],["録","記録","きろく"]],"5":[["圧","気圧","きあつ"],["囲","周囲","しゅうい"],["移","移動","いどう"],["因","原因","げんいん"],["永","永久","えいきゅう"],["営","営業","えいぎょう"],["衛","衛星","えいせい"],["易","貿易","ぼうえき"],["益","利益","りえき"],["液","液体","えきたい"],["演","演技","えんぎ"],["応","応用","おうよう"],["往","往復","おうふく"],["桜","葉桜","はざくら"],["可","可決","かけつ"],["仮","仮定","かてい"],["価","定価","ていか"],["河","河川","かせん"],["過","通過","つうか"],["快","快晴","かいせい"],["解","理解","りかい"],["格","合格","ごうかく"],["確","正確","せいかく"],["額","金額","きんがく"],["刊","朝刊","ちょうかん"],["幹","新幹線","しんかんせん"],["慣","習慣","しゅうかん"],["眼","眼科","がんか"],["紀","世紀","せいき"],["基","基本","きほん"],["寄","寄付","きふ"],["規","定規","じょうぎ"],["喜","大喜び","おおよろこび"],["技","競技","きょうぎ"],["義","意義","いぎ"],["逆","逆転","ぎゃくてん"],["久","持久走","じきゅうそう"],["旧","復旧","ふっきゅう"],["救","救急車","きゅうきゅうしゃ"],["居","住居","じゅうきょ"],["許","許可","きょか"],["境","国境","こっきょう"],["均","平均","へいきん"],["禁","禁止","きんし"],["句","文句","もんく"],["型","大型","おおがた"],["経","経験","けいけん"],["潔","清潔","せいけつ"],["件","事件","じけん"],["険","保険","ほけん"],["検","点検","てんけん"],["限","期限","きげん"],["現","表現","ひょうげん"],["減","減少","げんしょう"],["故","事故","じこ"],["個","個人","こじん"],["護","保護","ほご"],["効","効果","こうか"],["厚","厚着","あつぎ"],["耕","農耕","のうこう"],["航","航海","こうかい"],["鉱","鉱山","こうざん"],["構","構成","こうせい"],["興","興味","きょうみ"],["講","講堂","こうどう"],["告","広告","こうこく"],["混","混雑","こんざつ"],["査","調査","ちょうさ"],["再","再開","さいかい"],["災","火災","かさい"],["妻","夫妻","ふさい"],["採","採集","さいしゅう"],["際","国際","こくさい"],["在","現在","げんざい"],["財","文化財","ぶんかざい"],["罪","有罪","ゆうざい"],["殺","殺風景","さっぷうけい"],["雑","雑草","ざっそう"],["酸","酸素","さんそ"],["賛","賛成","さんせい"],["士","博士号","はくしごう"],["支","支店","してん"],["史","歴史","れきし"],["志","意志","いし"],["枝","枝豆","えだまめ"],["師","教師","きょうし"],["資","資料","しりょう"],["飼","飼育","しいく"],["示","指示","しじ"],["似","似顔絵","にがおえ"],["識","知識","ちしき"],["質","質問","しつもん"],["舎","校舎","こうしゃ"],["謝","感謝","かんしゃ"],["授","授業","じゅぎょう"],["修","修理","しゅうり"],["述","記述","きじゅつ"],["術","手術","しゅじゅつ"],["準","準備","じゅんび"],["序","順序","じゅんじょ"],["招","招待","しょうたい"],["証","保証","ほしょう"],["象","対象","たいしょう"],["賞","賞品","しょうひん"],["条","条件","じょうけん"],["状","年賀状","ねんがじょう"],["常","日常","にちじょう"],["情","表情","ひょうじょう"],["織","組織","そしき"],["職","職業","しょくぎょう"],["制","制限","せいげん"],["性","性格","せいかく"],["政","政治","せいじ"],["勢","大勢","おおぜい"],["精","精神","せいしん"],["製","製品","せいひん"],["税","税金","ぜいきん"],["責","責任","せきにん"],["績","成績","せいせき"],["接","面接","めんせつ"],["設","建設","けんせつ"],["絶","絶対","ぜったい"],["祖","祖父","そふ"],["素","素材","そざい"],["総","総合","そうごう"],["造","木造","もくぞう"],["像","想像","そうぞう"],["増","増加","ぞうか"],["則","規則","きそく"],["測","予測","よそく"],["属","金属","きんぞく"],["率","能率","のうりつ"],["損","損害","そんがい"],["貸","貸し出し","かしだし"],["態","状態","じょうたい"],["団","団体","だんたい"],["断","判断","はんだん"],["築","建築","けんちく"],["貯","貯金","ちょきん"],["張","出張","しゅっちょう"],["停","停止","ていし"],["提","提案","ていあん"],["程","日程","にってい"],["適","快適","かいてき"],["統","伝統","でんとう"],["堂","食堂","しょくどう"],["銅","銅像","どうぞう"],["導","指導","しどう"],["得","得意","とくい"],["毒","消毒","しょうどく"],["独","独立","どくりつ"],["任","責任","せきにん"],["燃","燃料","ねんりょう"],["能","才能","さいのう"],["破","破産","はさん"],["犯","防犯","ぼうはん"],["判","判定","はんてい"],["版","出版","しゅっぱん"],["比","対比","たいひ"],["肥","肥料","ひりょう"],["非","非常口","ひじょうぐち"],["費","消費","しょうひ"],["備","設備","せつび"],["評","評判","ひょうばん"],["貧","貧富","ひんぷ"],["布","毛布","もうふ"],["婦","主婦","しゅふ"],["武","武士","ぶし"],["復","回復","かいふく"],["複","複数","ふくすう"],["仏","大仏","だいぶつ"],["粉","花粉","かふん"],["編","長編","ちょうへん"],["弁","弁当","べんとう"],["保","保健室","ほけんしつ"],["墓","墓地","ぼち"],["報","予報","よほう"],["豊","豊富","ほうふ"],["防","予防","よぼう"],["貿","貿易","ぼうえき"],["暴","暴風","ぼうふう"],["脈","山脈","さんみゃく"],["務","事務所","じむしょ"],["夢","夢中","むちゅう"],["迷","迷路","めいろ"],["綿","綿毛","わたげ"],["輸","輸入","ゆにゅう"],["余","余分","よぶん"],["容","内容","ないよう"],["略","省略","しょうりゃく"],["留","留学","りゅうがく"],["領","大統領","だいとうりょう"],["歴","学歴","がくれき"]],"6":[["胃","胃腸","いちょう"],["異","異常","いじょう"],["遺","遺産","いさん"],["域","地域","ちいき"],["宇","宇宙","うちゅう"],["映","映画","えいが"],["延","延長","えんちょう"],["沿","沿岸","えんがん"],["恩","恩人","おんじん"],["我","我先","われさき"],["灰","灰色","はいいろ"],["拡","拡大","かくだい"],["革","改革","かいかく"],["閣","内閣","ないかく"],["割","分割","ぶんかつ"],["株","切り株","きりかぶ"],["干","干潮","かんちょう"],["巻","絵巻物","えまきもの"],["看","看病","かんびょう"],["簡","簡単","かんたん"],["危","危険","きけん"],["机","勉強机","べんきょうづくえ"],["揮","指揮者","しきしゃ"],["貴","貴重","きちょう"],["疑","疑問","ぎもん"],["吸","呼吸","こきゅう"],["供","提供","ていきょう"],["胸","度胸","どきょう"],["郷","郷土","きょうど"],["勤","通勤","つうきん"],["筋","筋肉","きんにく"],["系","太陽系","たいようけい"],["敬","敬語","けいご"],["警","警察","けいさつ"],["劇","演劇","えんげき"],["激","感激","かんげき"],["穴","穴場","あなば"],["券","乗車券","じょうしゃけん"],["絹","絹糸","きぬいと"],["権","人権","じんけん"],["憲","憲法","けんぽう"],["源","資源","しげん"],["厳","厳重","げんじゅう"],["己","自己","じこ"],["呼","点呼","てんこ"],["誤","誤解","ごかい"],["后","皇后","こうごう"],["孝","親孝行","おやこうこう"],["皇","皇居","こうきょ"],["紅","紅茶","こうちゃ"],["降","下降","かこう"],["鋼","鉄鋼","てっこう"],["刻","時刻","じこく"],["穀","穀物","こくもつ"],["骨","骨折","こっせつ"],["困","困難","こんなん"],["砂","砂場","すなば"],["座","星座","せいざ"],["済","経済","けいざい"],["裁","裁判","さいばん"],["策","対策","たいさく"],["冊","冊子","さっし"],["蚕","養蚕","ようさん"],["至","夏至","げし"],["私","私服","しふく"],["姿","姿勢","しせい"],["視","視力","しりょく"],["詞","歌詞","かし"],["誌","雑誌","ざっし"],["磁","磁石","じしゃく"],["射","注射","ちゅうしゃ"],["捨","四捨五入","ししゃごにゅう"],["尺","縮尺","しゅくしゃく"],["若","若者","わかもの"],["樹","樹木","じゅもく"],["収","収入","しゅうにゅう"],["宗","宗教","しゅうきょう"],["就","就任","しゅうにん"],["衆","観衆","かんしゅう"],["従","服従","ふくじゅう"],["縦","縦書き","たてがき"],["縮","短縮","たんしゅく"],["熟","熟語","じゅくご"],["純","単純","たんじゅん"],["処","処理","しょり"],["署","消防署","しょうぼうしょ"],["諸","諸国","しょこく"],["除","除雪","じょせつ"],["承","承知","しょうち"],["将","将来","しょうらい"],["傷","負傷","ふしょう"],["障","故障","こしょう"],["蒸","蒸発","じょうはつ"],["針","方針","ほうしん"],["仁","仁愛","じんあい"],["垂","垂直","すいちょく"],["推","推理","すいり"],["寸","寸法","すんぽう"],["盛","大盛り","おおもり"],["聖","聖火","せいか"],["誠","誠実","せいじつ"],["舌","舌打ち","したうち"],["宣","宣伝","せんでん"],["専","専門","せんもん"],["泉","温泉","おんせん"],["洗","洗面所","せんめんじょ"],["染","感染","かんせん"],["銭","金銭","きんせん"],["善","改善","かいぜん"],["奏","演奏","えんそう"],["窓","車窓","しゃそう"],["創","創造","そうぞう"],["装","服装","ふくそう"],["層","地層","ちそう"],["操","体操","たいそう"],["蔵","冷蔵庫","れいぞうこ"],["臓","心臓","しんぞう"],["存","保存","ほぞん"],["尊","尊敬","そんけい"],["退","引退","いんたい"],["宅","帰宅","きたく"],["担","担任","たんにん"],["探","探検","たんけん"],["誕","誕生日","たんじょうび"],["段","階段","かいだん"],["暖","温暖","おんだん"],["値","価値","かち"],["宙","宙返り","ちゅうがえり"],["忠","忠実","ちゅうじつ"],["著","著者","ちょしゃ"],["庁","県庁","けんちょう"],["頂","山頂","さんちょう"],["腸","大腸","だいちょう"],["潮","満潮","まんちょう"],["賃","運賃","うんちん"],["痛","頭痛","ずつう"],["敵","強敵","きょうてき"],["展","発展","はってん"],["討","検討","けんとう"],["党","政党","せいとう"],["糖","砂糖","さとう"],["届","欠席届","けっせきとどけ"],["難","災難","さいなん"],["乳","牛乳","ぎゅうにゅう"],["認","確認","かくにん"],["納","納税","のうぜい"],["脳","頭脳","ずのう"],["派","立派","りっぱ"],["拝","参拝","さんぱい"],["背","背中","せなか"],["肺","肺活量","はいかつりょう"],["俳","俳句","はいく"],["班","班長","はんちょう"],["晩","今晩","こんばん"],["否","安否","あんぴ"],["批","批評","ひひょう"],["秘","秘密","ひみつ"],["俵","土俵","どひょう"],["腹","空腹","くうふく"],["奮","興奮","こうふん"],["並","並木","なみき"],["陛","陛下","へいか"],["閉","開閉","かいへい"],["片","破片","はへん"],["補","候補","こうほ"],["暮","夕暮れ","ゆうぐれ"],["宝","宝石","ほうせき"],["訪","訪問","ほうもん"],["亡","死亡","しぼう"],["忘","忘れ物","わすれもの"],["棒","鉄棒","てつぼう"],["枚","枚数","まいすう"],["幕","開幕","かいまく"],["密","密接","みっせつ"],["盟","加盟","かめい"],["模","模型","もけい"],["訳","通訳","つうやく"],["郵","郵便","ゆうびん"],["優","優勝","ゆうしょう"],["預","預金","よきん"],["幼","幼児","ようじ"],["欲","食欲","しょくよく"],["翌","翌朝","よくあさ"],["乱","混乱","こんらん"],["卵","卵焼き","たまごやき"],["覧","展覧会","てんらんかい"],["裏","裏庭","うらにわ"],["律","法律","ほうりつ"],["臨","臨時","りんじ"],["朗","朗読","ろうどく"],["論","議論","ぎろん"]]},V={"4":[["「成功」のはんたいは？","失敗","苦労","結果","努力"],["「勝利」のはんたいは？","敗北","引き分け","成功","競争"],["「便利」のはんたいは？","不便","不安","有利","必要"],["「最高」のはんたいは？","最低","最後","最初","最近"],["「安心」のはんたいは？","心配","希望","関心","熱心"],["「浅い」のはんたいは？","深い","低い","細い","冷たい"],["「目標」とにたいみの言葉は？","目当て","目印","目次","注目"],["「便り」とにたいみの言葉は？","手紙","便利","近道","道具"],["「協力」のいみは？","力を合わせて取り組むこと","力の強さをくらべること","一人でがんばること","力をためておくこと"],["「省略」のいみは？","一部をはぶくこと","全部をくり返すこと","順番を入れかえること","くわしく書き足すこと"],["「工夫」のいみは？","よい方法をあれこれ考えること","工事をする建物","急いで作ること","人のまねをすること"],["「案外」のいみは？","思っていたのとちがって","考えたとおりに","案内の外で","はじめから"],["「目を丸くする」のいみは？","おどろく","ねむくなる","おこる","よろこぶ"],["「耳をかたむける」のいみは？","熱心に聞く","聞こえないふりをする","首をかしげる","大声で話す"],["「一石二鳥」のいみは？","一つのことで二つの得をする","鳥が二羽ならぶ","石につまずく","二つともうしなう"],["「十人十色」のいみは？","考えや好みは人それぞれ","色とりどりの服","十人で絵をかくこと","全員が同じ意見"]],"5":[["「増加」のはんたいは？","減少","追加","停止","増量"],["「許可」のはんたいは？","禁止","許容","命令","相談"],["「輸入」のはんたいは？","輸出","収入","貿易","出入"],["「原因」のはんたいは？","結果","理由","起源","要因"],["「賛成」のはんたいは？","反対","賛同","中立","感心"],["「理想」のはんたいは？","現実","空想","希望","予想"],["「安全」のはんたいは？","危険","保険","安心","事故"],["「応用」の反対に近い言葉は？","基本","利用","活用","作用"],["「興味」とにたいみの言葉は？","関心","感心","熱中症","意味"],["「準備」とにたいみの言葉は？","用意","予定","整理","設備"],["「快い」のいみは？","気持ちがよい","動きがはやい","とてもかたい","めったにない"],["「貴重」のいみは？","とても大切でめったにないこと","とても重いこと","ねだんが安いこと","注意が足りないこと"],["「経過」のいみは？","時がたつこと、物事の進みぐあい","道を通りすぎること","お金がかかること","あやまちをおかすこと"],["「猫の手も借りたい」のいみは？","とてもいそがしい","とてもさびしい","ねこが大好き","だれにもたよらない"],["「百聞は一見にしかず」のいみは？","何度も聞くより一度見るほうがよくわかる","百回聞けばおぼえる","見ただけではわからない","人の話をよく聞くべきだ"],["「急がば回れ」のいみは？","急ぐときほど安全で確かな方法がよい","急ぐときは走るとよい","回り道はむだである","早い者勝ちである"]],"6":[["「拡大」のはんたいは？","縮小","縮尺","延長","分割"],["「需要」と対になる言葉は？","供給","提供","必要","消費"],["「単純」のはんたいは？","複雑","簡単","純粋","困難"],["「困難」のはんたいは？","容易","苦労","複雑","危険"],["「義務」と対になる言葉は？","権利","責任","任務","規則"],["「感情」と対になる言葉は？","理性","表情","感想","心情"],["「延期」のいみは？","予定の日時を先にのばすこと","予定を取りやめること","予定を早めること","期間を短くすること"],["「誠実」のいみは？","まじめで真心があること","本当にあった出来事","実がたくさんなること","言葉がたくみなこと"],["「推測」のいみは？","手がかりからおしはかること","長さを正しくはかること","人にすすめること","前もって決めること"],["「臨機応変」のいみは？","その場に合わせてうまく対応すること","決めた方法を変えないこと","機械のように動くこと","何度も考えを変えて迷うこと"],["「異口同音」のいみは？","多くの人が同じことを言う","一人ずつ違う意見を言う","外国の言葉を話す","同じ音の漢字がある"],["「温故知新」のいみは？","昔のことを学び新しい考えを得る","新しい物だけを大切にする","昔をなつかしんで泣く","温かい場所で勉強する"],["「いちじるしい」のいみは？","はっきりとわかるほどである","ほんの少しである","いつもと同じである","何度もくり返される"],["「枚挙にいとまがない」のいみは？","数が多くて数えきれない","ひまがまったくない","紙が足りない","例が一つもない"],["「他山の石」のいみは？","他人の失敗なども自分をみがく助けになる","よその山の石は価値が高い","自分には関係がない","他人のものをうらやむ"]]};
+const ALL=Object.entries(K).flatMap(([g,a])=>a.map(([k,w,r])=>({g:+g,k,w,r})));
+const KINDS={yomi:'よみ',kaki:'かき',jun:'書きじゅん',goi:'ことば'};
+const STYLES={ren:'れんしゅう',ta:'タイムアタック',turn:'親子こうたい対戦',haya:'親子早おし対戦'};
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const S=Object.assign({sel:ALL.filter(x=>x.g==4).map(x=>x.k),kind:'yomi',style:'ren',n:10,names:['こども','おうちの人'],hand:true},store.get('kanji-set-456',{}));
+const app=document.getElementById('app');
+const $=s=>app.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+let token=0,openGrade=0,G;
+const later=(f,ms)=>{const t=token;setTimeout(()=>t===token&&f(),ms)};
+const pool=()=>ALL.filter(x=>S.sel.includes(x.k));
+
+function home(){
+ token++;store.set('kanji-set-456',S);
+ const p=pool(),battle=S.style=='turn'||S.style=='haya';
+ if(S.style=='haya'&&(S.kind=='kaki'||S.kind=='jun'))S.kind='yomi';
+ const btns=(o,key)=>Object.entries(o).map(([v,l])=>`<button data-${key}="${v}" class="${S[key]==v?'on':''}" ${key=='kind'&&S.style=='haya'&&(v=='kaki'||v=='jun')?'disabled':''}>${l}</button>`).join('');
+ app.innerHTML=`<h1>かんじ しょうぶ 4〜6年</h1>
+ <h2>① はんい（${p.length}字）</h2>
+ ${[4,5,6].map(g=>{const a=ALL.filter(x=>x.g==g),c=a.filter(x=>S.sel.includes(x.k)).length;
+  return `<div class="row" style="margin-bottom:6px"><button data-grade="${g}" class="${c==a.length?'on':''}">${g}年生 ${c}/${a.length}</button><button data-open="${g}" style="flex:0 0 auto">字をえらぶ</button></div>`+
+  (openGrade==g?`<div class="grid">${a.map(x=>`<button data-k="${x.k}" class="${S.sel.includes(x.k)?'on':''}">${x.k}</button>`).join('')}</div>`:'')}).join('')}
+ <h2>② もんだい</h2><div class="row">${btns(KINDS,'kind')}</div>
+ <h2>③ あそびかた</h2><div class="row">${btns(STYLES,'style')}</div>
+ <h2>④ もんだいの数</h2><div class="row">${btns({5:'5もん',10:'10もん',20:'20もん'},'n')}</div>
+ ${battle?`<h2>名前</h2><div class="row">${S.names.map((v,i)=>`<input data-name="${i}" value="${esc(v)}" maxlength="8">`).join('')}</div>
+ ${S.kind=='yomi'?(S.style=='turn'?`<p><label><input type="checkbox" id="hand" style="width:auto" ${S.hand?'checked':''}> ハンデ：2人目は6たく</label></p>`:''):''}`:''}
+ <button class="go" id="go" ${p.length?'':'disabled'}>はじめる</button>
+ <p style="font-size:13px">タイムアタックと対戦は、まちがえると＋5びょう（早おしは相手にチャンス）。</p>`;
+ app.querySelectorAll('button').forEach(b=>b.onclick=()=>{const d=b.dataset;
+  if(b.id=='go')return start();
+  if(d.grade){const a=ALL.filter(x=>x.g==d.grade).map(x=>x.k),full=a.every(k=>S.sel.includes(k));S.sel=S.sel.filter(k=>!a.includes(k));if(!full)S.sel.push(...a)}
+  if(d.open)openGrade=openGrade==d.open?0:+d.open;
+  if(d.k)S.sel=S.sel.includes(d.k)?S.sel.filter(k=>k!=d.k):[...S.sel,d.k];
+  for(const key of['kind','style'])if(d[key])S[key]=d[key];
+  if(d.n)S.n=+d.n;home()});
+ app.querySelectorAll('[data-name]').forEach(i=>i.oninput=()=>{S.names[i.dataset.name]=i.value;store.set('kanji-set-456',S)});
+ if($('#hand'))$('#hand').onchange=e=>{S.hand=e.target.checked;store.set('kanji-set-456',S)};
+}
+
+function items(){
+ if(S.kind=='goi'){const gs=new Set(pool().map(x=>x.g));return [...gs].flatMap(g=>V[g].map(v=>({g,v})))}
+ let p=shuffle(pool());
+ if(S.kind=='yomi'){const seen=new Set;p=p.filter(x=>!seen.has(x.w)&&seen.add(x.w))}
+ return p;
+}
+function choices(it,n){
+ if(it.v)return{a:it.v[1],list:shuffle(it.v.slice(1))};
+ const others=[...new Set(ALL.filter(x=>x.g==it.g&&x.r!=it.r).map(x=>x.r))];
+ const near=shuffle(others).sort((a,b)=>Math.abs(a.length-it.r.length)-Math.abs(b.length-it.r.length)).slice(0,12);
+ return{a:it.r,list:shuffle([it.r,...shuffle(near).slice(0,n-1)])};
+}
+const qHTML=it=>it.v?`<div class="q long">${it.v[0]}</div>`:`<div class="q">${[...it.w].map(c=>c==it.k?`<span class="t">${c}</span>`:c).join('')}</div><div>この言葉の読みは？</div>`;
+
+function start(){
+ const all=shuffle(items()),two=S.style=='turn';
+ const n=Math.min(S.n,two?Math.max(1,Math.floor(all.length/2)):all.length);
+ G={n,p:0,players:two?[0,1].map(i=>({name:S.names[i]||`${i+1}人目`,qs:two&&all.length>1?all.slice(i*n,(i+1)*n):all.slice(0,n)})):[{name:'',qs:all.slice(0,n)}]};
+ G.players.forEach(p=>Object.assign(p,{i:0,ok:0,time:0,miss:[]}));
+ if(S.style=='haya'){G={qs:all.slice(0,n),i:0,score:[0,0]};return duel()}
+ two?ready():ask();
+}
+function ready(){
+ token++;
+ app.innerHTML=`<div class="card"><p class="q">${esc(G.players[G.p].name)}の番</p><p>じゅんびができたら おしてね</p><button class="go" id="go">スタート</button></div>`;
+ $('#go').onclick=ask;
+}
+function ask(){
+ token++;
+ const P=G.players[G.p],it=P.qs[P.i];let t0=0,done=false,timer;
+ app.innerHTML=`<div class="bar"><button id="quit">やめる</button><span>${esc(P.name)} ${P.i+1}/${G.n}</span><b id="clock"></b></div><div id="body"></div><div class="msg" id="msg"></div><div id="after"></div>`;
+ $('#quit').onclick=home;
+ const my=token,clock=$('#clock'),body=$('#body'),msg=$('#msg'),after=$('#after');
+ const begin=()=>{t0=performance.now();if(S.style!='ren')timer=setInterval(()=>{if(my!==token)return clearInterval(timer);clock.textContent=(P.time+(performance.now()-t0)/1000).toFixed(1)+'秒'},100)};
+ const stop=()=>{clearInterval(timer);if(t0){P.time+=(performance.now()-t0)/1000;t0=0}};
+ const finish=(ok,text,auto)=>{if(done)return;done=true;stop();
+  if(ok)P.ok++;else{P.miss.push(it);if(S.style!='ren')P.time+=5}
+  msg.textContent=(ok?'⭕ せいかい！ ':'🌱 おしい！ ')+text;
+  const next=()=>{P.i++;if(P.i<G.n)ask();else if(S.style=='turn'&&G.p==0){G.p=1;ready()}else result()};
+  if(auto&&ok)later(next,900);else{after.innerHTML='<button class="go">つぎへ</button>';after.firstChild.onclick=next}};
+ if(S.kind=='yomi'||S.kind=='goi'){
+  const c=choices(it,S.style=='turn'&&S.hand&&G.p==1?6:4);
+  body.innerHTML=`<div class="card">${qHTML(it)}</div><div class="ch">${c.list.map(x=>`<button>${x}</button>`).join('')}</div>`;
+  const bs=[...body.querySelectorAll('.ch button')];
+  bs.forEach(b=>b.onclick=()=>{bs.forEach(x=>{x.disabled=true;if(x.textContent==c.a){x.className='ok';x.style.opacity=1}});
+   const ok=b.textContent==c.a;if(!ok)b.className='ng';finish(ok,ok?'':`こたえは「${c.a}」`,true)});
+  begin();
+ }else if(S.kind=='kaki'){
+  body.innerHTML=`<div class="card"><div class="q">${it.w.split(it.k).join('<span class="t">□</span>')}</div><div>読み：${it.r}　□の漢字を書こう</div></div><canvas class="pad" width="600" height="600"></canvas><div class="row"><button id="clr">けす</button><button id="show">こたえを見る</button></div>`;
+  draw(body.querySelector('canvas'),()=>done);
+  body.querySelector('#clr').onclick=()=>{const c=body.querySelector('canvas');c.getContext('2d').clearRect(0,0,600,600)};
+  body.querySelector('#show').onclick=e=>{stop();e.target.disabled=true;
+   msg.innerHTML=`こたえ <span style="font-size:64px;font-family:'UD デジタル 教科書体 N-R','YuKyokasho',serif">${it.k}</span>`;
+   after.innerHTML='<p style="text-align:center">見くらべて、まるつけしよう</p><div class="row"><button class="ok">⭕ 書けた</button><button class="ng">もういちど</button></div>';
+   after.querySelector('.ok').onclick=()=>finish(true,it.k);after.querySelector('.ng').onclick=()=>finish(false,it.k)};
+  begin();
+ }else{
+  body.innerHTML=`<div class="card"><div class="q">${it.w.split(it.k).join('<span class="t">□</span>')}</div><div>読み：${it.r}　□を正しい書きじゅんで書こう</div></div><div class="pad" id="hw"></div><div class="row"><button id="demo" disabled>お手本を見る</button></div>`;
+  const el=body.querySelector('#hw'),size=el.clientWidth-4;msg.textContent='よみこみ中…';
+  const fail=()=>{if(my!==token||done)return;done=true;msg.textContent='書きじゅんデータをよみこめませんでした。ネットにつないで、公開したページで開いてください。';after.innerHTML='<button class="go">もどる</button>';after.firstChild.onclick=home};
+  if(!window.HanziWriter)return fail();
+  let helped=false,w;
+  const quiz=()=>w.quiz({showHintAfterMisses:S.style=='ren'?1:3,onComplete:r=>{if(my!==token)return;const ok=!helped&&r.totalMistakes<=1;finish(ok,`まちがい ${r.totalMistakes}回${helped?'（お手本を見たよ）':''}`)}});
+  w=HanziWriter.create(el,it.k,{width:size,height:size,padding:12,showCharacter:false,showOutline:S.style=='ren',drawingWidth:20,
+   charDataLoader:(c,load,err)=>fetch(`https://cdn.jsdelivr.net/npm/hanzi-writer-data-jp@0/${encodeURIComponent(c)}.json`).then(r=>{if(!r.ok)throw 0;return r.json()}).then(load).catch(err),
+   onLoadCharDataSuccess:()=>{if(my!==token)return;msg.textContent='';const d=body.querySelector('#demo');d.disabled=false;
+    d.onclick=()=>{if(done)return;helped=true;d.disabled=true;w.cancelQuiz();w.animateCharacter({onComplete:()=>later(()=>{w.hideCharacter();d.disabled=false;quiz()},700)})};
+    begin();later(quiz,0)},
+   onLoadCharDataError:fail});
+ }
+}
+function draw(c,locked){
+ const x=c.getContext('2d');let last;
+ const pos=e=>{const r=c.getBoundingClientRect();return[(e.clientX-r.left)*600/r.width,(e.clientY-r.top)*600/r.height]};
+ c.onpointerdown=e=>{if(locked())return;c.setPointerCapture(e.pointerId);last=pos(e)};
+ c.onpointermove=e=>{if(!last)return;const p=pos(e);x.lineWidth=18;x.lineCap='round';x.strokeStyle='#23303f';x.beginPath();x.moveTo(...last);x.lineTo(...p);x.stroke();last=p};
+ c.onpointerup=c.onpointercancel=()=>last=null;
+}
+function result(){
+ token++;const ps=G.players,score=p=>p.time;let head='おつかれさま！';
+ if(S.style=='turn'){const[a,b]=ps;head=score(a)==score(b)?'ひきわけ！':`${esc((score(a)<score(b)?a:b).name)}の勝ち！`}
+ let rec='';
+ if(S.style=='ta'){const key=`kanji-best-456:${S.kind}:${G.n}:${[...S.sel].sort().join('')}`,old=store.get(key,null),t=ps[0].time;
+  if(old==null||t<old){store.set(key,t);rec='<p>🏆 しんきろく！</p>'}else rec=`<p>ベスト ${old.toFixed(1)}秒</p>`}
+ const miss=[...new Set(ps.flatMap(p=>p.miss))];
+ app.innerHTML=`<div class="card"><p class="q long">${head}</p>${ps.map(p=>`<p>${esc(p.name)}　${p.ok}/${G.n}もん${S.style!='ren'?`　<b>${p.time.toFixed(1)}秒</b>`:''}</p>`).join('')}${rec}</div>
+ ${miss.length?`<div class="card"><b>つぎに育てることば</b>${miss.map(m=>`<p>${m.v?`${m.v[0]} → ${m.v[1]}`:`${m.w}（${m.r}）`}</p>`).join('')}</div>`:''}
+ <button class="go" id="again">もういちど</button><p><button id="home" style="width:100%">はんいをえらびなおす</button></p>`;
+ $('#again').onclick=start;$('#home').onclick=home;
+}
+function duel(){
+ token++;const it=G.qs[G.i],c=choices(it,4),names=[0,1].map(i=>S.names[i]||`${i+1}人目`);
+ const half=i=>`<div class="half ${i?'top':''}" data-p="${i}"><b>${esc(names[i])}　${G.score[i]}点</b>${qHTML(it)}<div class="ch">${c.list.map(x=>`<button>${x}</button>`).join('')}</div><div class="msg"></div></div>`;
+ app.innerHTML=`<div class="duel">${half(1)}<div class="mid">${G.i+1}/${G.qs.length}　<button id="quit">やめる</button></div>${half(0)}</div>`;
+ $('#quit').onclick=home;
+ let over=false;const out=new Set;
+ const end=()=>{over=true;app.querySelectorAll('.half').forEach(h=>h.querySelectorAll('.ch button').forEach(b=>{b.disabled=true;if(b.textContent==c.a){b.className='ok';b.style.opacity=1}}));
+  later(()=>{if(++G.i<G.qs.length)return duel();const[a,b]=G.score;
+   app.innerHTML=`<div class="card"><p class="q long">${a==b?'ひきわけ！':esc(names[a>b?0:1])+'の勝ち！'}</p><p>${esc(names[0])} ${a}点　／　${esc(names[1])} ${b}点</p></div><button class="go" id="again">もういちど</button><p><button id="home" style="width:100%">はじめにもどる</button></p>`;
+   $('#again').onclick=start;$('#home').onclick=home},2200)};
+ app.querySelectorAll('.half').forEach(h=>{const i=+h.dataset.p;h.querySelectorAll('.ch button').forEach(b=>b.onpointerdown=()=>{
+  if(over||out.has(i))return;
+  if(b.textContent==c.a){G.score[i]++;h.querySelector('.msg').textContent='⭕ 1点！';end()}
+  else{out.add(i);b.className='ng';h.querySelector('.msg').textContent='おしい！このもんだいはお休み';h.querySelectorAll('.ch button').forEach(x=>x.disabled=true);if(out.size==2)end()}})});
+}
+home();
+</script></body></html>
